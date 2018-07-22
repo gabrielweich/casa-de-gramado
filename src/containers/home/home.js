@@ -7,12 +7,12 @@ import Grid from '@material-ui/core/Grid';
 import titleImage from '../../images/6.jpg'
 import './home.css'
 import Login from '../login/login'
-import Register from '../register/register'
+import Cadastro from '../cadastro/cadastro'
 
 export default class Home extends React.Component {
     state = {
         login: false,
-        register: false
+        cadastro: false
     }
 
     handleReservar = () => {
@@ -23,13 +23,13 @@ export default class Home extends React.Component {
         this.setState({ login: false })
     }
 
-    handleLoginToRegister = (e) => {
+    handleLoginToCadastro = (e) => {
         e.preventDefault();
-        this.setState({ login: false, register: true })
+        this.setState({ login: false, cadastro: true })
     }
 
-    handleCloseRegister = () => {
-        this.setState({ register: false })
+    handleCloseCadastro = () => {
+        this.setState({ cadastro: false })
     }
 
     render() {
@@ -38,11 +38,11 @@ export default class Home extends React.Component {
                 <Login
                     open={this.state.login}
                     handleClose={this.handleCloseLogin}
-                    handleRegister={this.handleLoginToRegister} />
+                    handleCadastro={this.handleLoginToCadastro} />
 
-                <Register
-                    open={this.state.register}
-                    handleClose={this.handleCloseRegister} />
+                <Cadastro
+                    open={this.state.cadastro}
+                    handleClose={this.handleCloseCadastro} />
 
                 <div className="title-container">
                     <div className="title-text">Casa de Gramado</div>
