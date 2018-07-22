@@ -1,0 +1,34 @@
+.title-container {
+    position: relative;
+    text-align: center;
+ 
+}
+
+.title-image {
+    width: 100%;
+    height: auto;
+    min-height: 170px; 
+}
+
+.title-text {
+    position: absolute;
+    font-size: 4.2vw;
+    color: white;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.title-button {
+    background-color: "#fff" !important;
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 8% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+
+.resource-unit {
+    text-align: center !important;
+    padding: 20px !important;
+}
