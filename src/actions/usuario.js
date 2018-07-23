@@ -1,5 +1,5 @@
 import * as types from './types'
-import axios from '../axios-manuel'
+import axios from '../axios'
 
 const cadastroStart = () => {
     return {
