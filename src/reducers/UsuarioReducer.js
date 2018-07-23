@@ -33,11 +33,40 @@ const cadastroSuccess = (state, id) => {
 }
 
 
+
+const loginStart = (state) => {
+    return {
+        ...state,
+        loginLoading: true,
+        loginError: false
+    }
+}
+
+const loginFail = (state, error) => {
+    return {
+        ...state,
+        loginLoading: false,
+        loginError: error
+    }
+}
+
+const loginSuccess = (state, id) => {
+    return {
+        ...state,
+        loginLoading: false,
+        id,
+    }
+}
+
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case types.CADASTRO_START: return cadastroStart(state);
         case types.CADASTRO_FAIL: return cadastroFail(state, action.error)
         case types.CADASTRO_SUCCESS: return cadastroSuccess(state, action.id)
+        case types.LOGIN_START: return loginStart(state);
+        case types.LOGIN_FAIL: return loginFail(state, action.error)
+        case types.LOGIN_SUCCESS: return loginSuccess(state, action.id)
         default: return state;
     }
 }

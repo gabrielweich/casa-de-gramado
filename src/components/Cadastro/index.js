@@ -79,7 +79,7 @@ class Cadastro extends React.Component {
                             <Input
                                 margin="dense"
                                 fullWidth
-                                value={this.state.textmask}
+                                value={this.state.telefone}
                                 onChange={this.handleChange('telefone')}
                                 id="formatted-text-mask-input"
                                 inputComponent={TextMaskCustom}
