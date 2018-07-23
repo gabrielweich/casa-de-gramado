@@ -11,6 +11,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import MaskedInput from 'react-text-mask'
 
+import { connect } from 'react-redux';
+
+import * as actions from '../../actions/usuario'
+import Spinner from '../Spinner'
+
 function TextMaskCustom(props) {
     const { inputRef, ...other } = props;
 
@@ -24,9 +29,13 @@ function TextMaskCustom(props) {
     );
 }
 
-export default class Cadastro extends React.Component {
+class Cadastro extends React.Component {
     state = {
-        textmask: ''
+        nome: '',
+        telefone: '',
+        email: '',
+        senha: '',
+        codigo: '',
     };
 
     handleChange = name => event => {
@@ -34,6 +43,21 @@ export default class Cadastro extends React.Component {
             [name]: event.target.value,
         });
     };
+
+    handleEnviar = () => {
+        console.log(this.state)
+        const { nome, telefone, email, senha, codigo } = this.state
+        const usuario = {
+            nome,
+            telefone,
+            email,
+            senha,
+            codigo
+        }
+
+        console.log(usuario)
+        this.props.cadastrar(usuario)
+    }
 
     render() {
         return (
@@ -48,6 +72,7 @@ export default class Cadastro extends React.Component {
                             margin="dense"
                             label="Nome Completo"
                             fullWidth
+                            onChange={this.handleChange('nome')}
                         />
                         <FormControl fullWidth margin="dense">
                             <InputLabel htmlFor="formatted-text-mask-input">Telefone</InputLabel>
@@ -55,7 +80,7 @@ export default class Cadastro extends React.Component {
                                 margin="dense"
                                 fullWidth
                                 value={this.state.textmask}
-                                onChange={this.handleChange('textmask')}
+                                onChange={this.handleChange('telefone')}
                                 id="formatted-text-mask-input"
                                 inputComponent={TextMaskCustom}
                             />
@@ -65,6 +90,7 @@ export default class Cadastro extends React.Component {
                             label="Email"
                             type="email"
                             fullWidth
+                            onChange={this.handleChange('email')}
                         />
                         <TextField
                             id="password-input"
@@ -73,20 +99,42 @@ export default class Cadastro extends React.Component {
                             autoComplete="current-password"
                             margin="dense"
                             fullWidth
+                            onChange={this.handleChange('senha')}
                         />
                         <TextField
                             margin="dense"
                             label="Código de verificação"
                             fullWidth
+                            onChange={this.handleChange('codigo')}
                         />
                     </DialogContent>
                     <DialogActions style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                        <Button onClick={this.props.handleClose} variant="raised" color="primary">
-                            Enviar
-                        </Button>
+                        {this.props.loading
+                            ? <Spinner />
+                            : <Button onClick={this.handleEnviar} variant="raised" color="primary">
+                                Enviar
+                              </Button>
+                        }
                     </DialogActions>
                 </Dialog>
             </div>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        loading: state.usuario.cadastroLoading,
+        error: state.usuario.cadastroError
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        cadastrar: (usuario) => dispatch(actions.cadastro(usuario))
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cadastro);

@@ -5,9 +5,9 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 import titleImage from '../../images/6.jpg'
-import './home.css'
-import Login from '../login/login'
-import Cadastro from '../cadastro/cadastro'
+import './styles.css'
+import Login from '../../components/Login'
+import Cadastro from '../../components/Cadastro'
 
 export default class Home extends React.Component {
     state = {

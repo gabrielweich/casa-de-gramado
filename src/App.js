@@ -1,26 +1,44 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
 
-import Home from './containers/home/home';
-import Reservas from './containers/reservas/reservas'
-import './App.css';
+import Home from './screens/Home';
+import Reservas from './screens/Reservas'
 
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <BrowserRouter>
-          <div>
+    render() {
+        let routes = (
             <Switch>
-              <Route exact path="/reservas" component={Reservas} />
-              <Route path="/" component={Home} />
+                <Route path="/" exact component={Home} />
+                <Redirect to="/" />
             </Switch>
-          </div>
-        </BrowserRouter>
-      </div>
-    );
-  }
+        );
+
+        if (this.props.isAuthenticated) {
+            routes = (
+                <Switch>
+                    <Route path="/reservas" component={Reservas} />
+                    <Route path="/" exact component={Home} />
+                    <Redirect to="/" />
+                </Switch>
+            );
+        }
+        return (
+            <div>
+                {routes}
+            </div >
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = state => {
+    console.log(state)
+    return {
+        isAuthenticated: true,
+    }
+}
+
+
+
+export default withRouter(connect(mapStateToProps)(App));

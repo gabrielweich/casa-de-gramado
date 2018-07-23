@@ -7,8 +7,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import './login.css'
-
 export default class Login extends React.Component {
 
     render() {
@@ -41,7 +39,7 @@ export default class Login extends React.Component {
 
                             <p>
                                 Ainda não tem uma conta? 
-                                <a href="" onClick={(e) => this.props.handleCadastro(e)} className="disabled" style={{ float: 'right', marginLeft: 5 }}>
+                                <a href="" onClick={(e) => this.props.handleCadastro(e)} style={{ float: 'right', marginLeft: 5 }}>
                                     Cadastre-se aqui
                                 </a>
                             </p>
