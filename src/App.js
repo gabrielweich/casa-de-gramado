@@ -5,6 +5,12 @@ import { connect } from 'react-redux';
 import Home from './screens/Home';
 import Reservas from './screens/Reservas'
 
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import moment from 'moment';
+import 'moment/locale/pt-br';
+
+
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import AppBar from './components/AppBar'
 
@@ -34,13 +40,15 @@ class App extends Component {
             );
         }
         return (
-            <MuiThemeProvider theme={theme}>
-                <div>
+            <div>
+                <MuiThemeProvider theme={theme}>
+                    <div>
 
-                    {this.props.isAuthenticated && <AppBar/>}
-                    {routes}
-                </div>
-            </MuiThemeProvider>
+                        {this.props.isAuthenticated && <AppBar />}
+                        {routes}
+                    </div>
+                </MuiThemeProvider>
+            </div>
         );
     }
 }

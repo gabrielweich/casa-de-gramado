@@ -27,6 +27,7 @@ export const cadastro = (usuario) => async dispatch => {
     dispatch(cadastroStart());
     try {
         const res = await axios.post('/cadastra', usuario)
+        console.log(res)
         dispatch(cadatroSuccess(res.id_usuario));
     }
     catch (error) {

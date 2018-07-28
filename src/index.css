@@ -5,4 +5,9 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
   overflow: hidden;
+  box-sizing: border-box
+}
+
+.DateRangePicker *, .SingleDatePicker *, .DayPickerRangeController * {
+  box-sizing: border-box;
 }
