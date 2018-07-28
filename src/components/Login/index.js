@@ -8,6 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
 
 import * as actions from '../../actions/usuario'
 import Spinner from '../Spinner'
@@ -32,6 +33,7 @@ class Login extends React.Component {
     render() {
         return (
             <div>
+                {this.props.isAuthenticated && this.props.open && <Redirect to="/reservas" />}
                 <Dialog
                     open={this.props.open}
                     onClose={this.props.handleClose}
@@ -73,7 +75,7 @@ class Login extends React.Component {
                             ? <Spinner />
                             : <Button onClick={this.handleEntrar} variant="raised" color="primary">
                                 Entrar
-                      </Button>
+                              </Button>
                         }
                     </DialogActions>
                 </Dialog>
@@ -86,7 +88,8 @@ class Login extends React.Component {
 const mapStateToProps = (state) => {
     return {
         loading: state.usuario.loginLoading,
-        error: state.usuario.loginError
+        error: state.usuario.loginError,
+        isAuthenticated: Boolean(state.usuario.id)
     }
 }
 

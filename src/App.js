@@ -55,7 +55,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: true,
+        isAuthenticated: Boolean(state.usuario.id)
     }
 }
 

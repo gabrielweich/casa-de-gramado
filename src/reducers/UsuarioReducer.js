@@ -1,11 +1,11 @@
 import * as types from '../actions/types';
 
 const initialState = {
-    id: null,
+    id: 1,
     cadastroLoading: false,
     cadastroFail: null,
     loginLoading: false,
-    loginFail: null
+    loginFail: null,
 }
 
 const cadastroStart = (state) => {
@@ -55,6 +55,32 @@ const loginSuccess = (state, id) => {
         ...state,
         loginLoading: false,
         id,
+    }
+}
+
+
+
+const reservarStart = (state) => {
+    return {
+        ...state,
+        loginLoading: true,
+        loginError: false
+    }
+}
+
+const reservarFail = (state, error) => {
+    return {
+        ...state,
+        loginLoading: false,
+        loginError: error
+    }
+}
+
+const reservarSuccess = (state, idReserva) => {
+    return {
+        ...state,
+        loginLoading: false,
+        idReserva,
     }
 }
 

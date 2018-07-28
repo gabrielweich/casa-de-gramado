@@ -12,8 +12,10 @@ import thunk from 'redux-thunk'
 
 
 import UsuarioReducer from './reducers/UsuarioReducer'
+import ReservaReducer from './reducers/ReservaReducer'
 
 const rootReducer = combineReducers({
+    reserva: ReservaReducer,
     usuario: UsuarioReducer
 })
 
