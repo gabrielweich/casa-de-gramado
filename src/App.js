@@ -5,6 +5,15 @@ import { connect } from 'react-redux';
 import Home from './screens/Home';
 import Reservas from './screens/Reservas'
 
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import AppBar from './components/AppBar'
+
+const theme = createMuiTheme({
+    typography: {
+        fontFamily: 'Montserrat'
+    }
+});
+
 
 class App extends Component {
     render() {
@@ -25,9 +34,13 @@ class App extends Component {
             );
         }
         return (
-            <div>
-                {routes}
-            </div >
+            <MuiThemeProvider theme={theme}>
+                <div>
+
+                    {this.props.isAuthenticated && <AppBar/>}
+                    {routes}
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
