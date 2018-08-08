@@ -1,7 +1,7 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from '../../actions/reserva'
 import { DateRangePicker } from 'react-dates';
 import Spinner from '../../components/Spinner';
@@ -14,15 +14,20 @@ class Reservas extends React.Component {
         focusedInput: null
     }
 
+    componentDidMount() {
+        this.props.loadDatasReservadas()
+    }
+
     confirmar = () => {
         const { startDate, endDate } = this.state
         if (this.state.startDate && this.state.endDate) {
-            this.props.reservar(this.props.idUsuario, startDate.locale("en").utcOffset(-180).format("ddd, DD MMM YYYY HH:mm:ss [GMT]"), endDate.locale("en").utcOffset(-180).format("ddd, DD MMM YYYY HH:mm:ss [GMT]"))
+            this.props.reservar(this.props.idUsuario, startDate.locale("en").utcOffset(-900).format("ddd, DD MMM YYYY HH:mm:ss [GMT]"), endDate.locale("en").utcOffset(-900).format("ddd, DD MMM YYYY HH:mm:ss [GMT]"))
         }
     }
 
     render() {
-        const {endDate, startDate} = this.state
+        const { endDate, startDate } = this.state
+        console.log(this.props.datasReservadas)
         return (
             <div>
                 <Typography variant="display2" style={{ fontSize: 30, color: '#1B5E20', opacity: 1, marginTop: 20, marginLeft: 20 }}>
@@ -30,25 +35,32 @@ class Reservas extends React.Component {
                 </Typography>
                 <div style={{ marginLeft: 20, marginTop: 20, display: "inline-flex", flexDirection: 'row', border: '1px solid gray', borderRadius: 5, padding: 5, flex: 0 }}>
                     <div >
-                        <DateRangePicker
-                            
-                            noBorder={true}
-                            startDatePlaceholderText="Data Inicial"
-                            endDatePlaceholderText="Data Final"
-                            showDefaultInputIcon
-                            startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                            startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-                            endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                            endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-                            onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
-                            focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                            onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-                        />
+                        {this.props.datasReservadasLoading
+                            ?
+                            null
+                            :
+                            <DateRangePicker
+                                isDayBlocked={d => {
+                                    const f_d = d.format("DD/MM/YYYY")
+                                    return this.props.datasReservadas.has(f_d)
+                                }}
+                                noBorder={true}
+                                startDatePlaceholderText="Data Inicial"
+                                endDatePlaceholderText="Data Final"
+                                showDefaultInputIcon
+                                startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                                startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+                                endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                                endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+                                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+                                focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                                onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+                            />}
                     </div>
                     <div style={{ color: '#1B5E20', alignSelf: 'center' }}>
-                        {startDate && endDate ? "R$: " + (endDate.diff(startDate, 'd') * 1500).toString() + ",00": ""}
+                        {startDate && endDate ? "R$: " + (endDate.diff(startDate, 'd') * 1500).toString() + ",00" : ""}
                     </div>
-                    <div style={{ alignSelf: 'center', marginLeft: 20}}>
+                    <div style={{ alignSelf: 'center', marginLeft: 20 }}>
                         {this.props.loading
                             ? <Spinner />
                             : <Button
@@ -56,7 +68,7 @@ class Reservas extends React.Component {
                                 onClick={this.confirmar}
                                 size="medium"
                                 style={{ color: '#1B5E20' }} >
-                                    Confirmar
+                                Confirmar
                               </Button>
                         }
 
@@ -78,14 +90,17 @@ const mapStateToProps = (state) => {
     return {
         loading: state.reserva.reservarLoading,
         error: state.reserva.reservarFail,
-        idUsuario: state.usuario.id
+        idUsuario: state.usuario.id,
+        datasReservadas: state.reserva.datasReservadas,
+        datasReservadasLoading: state.reserva.datasReservadasLoading
     }
 }
 
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        reservar: (idUsuario, inicio, fim) => dispatch(actions.reservar(idUsuario, inicio, fim))
+        reservar: (idUsuario, inicio, fim) => dispatch(actions.reservar(idUsuario, inicio, fim)),
+        loadDatasReservadas: () => dispatch(actions.datasReservadas())
     }
 }
 
