@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions/reserva'
 import { DateRangePicker } from 'react-dates';
 import Spinner from '../../components/Spinner';
-import moment from 'moment'
+
 class Reservas extends React.Component {
     state = {
         data: null,
@@ -17,7 +17,7 @@ class Reservas extends React.Component {
     confirmar = () => {
         const { startDate, endDate } = this.state
         if (this.state.startDate && this.state.endDate) {
-            this.props.reservar(this.props.idUsuario, startDate.locale("en").utcOffset(-180).format("ddd, DD MMM YYYY HH:mm:ss") + " GMT", endDate.locale("en").utcOffset(-180).format("ddd, DD MMM YYYY HH:mm:ss") + " GMT")
+            this.props.reservar(this.props.idUsuario, startDate.locale("en").utcOffset(-180).format("ddd, DD MMM YYYY HH:mm:ss [GMT]"), endDate.locale("en").utcOffset(-180).format("ddd, DD MMM YYYY HH:mm:ss [GMT]"))
         }
     }
 
