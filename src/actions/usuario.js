@@ -74,6 +74,12 @@ export const login = (email, senha) => async dispatch => {
     }
 }
 
+export const logout = () => {
+    return {
+        type: types.LOGOUT
+    }
+}
+
 
 
 

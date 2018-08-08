@@ -29,18 +29,25 @@ export const reservar = (idUsuario, inicio, fim) => async dispatch => {
         'id_usuario': idUsuario,
         'data_checkin': inicio,
         'data_checkout': fim,
-        'valor': 100,
-        'valor_final': 90,
-        'desconto': 10
     }
-    
     console.log(data)
     try {
         const res = await axios.post('/reserva', data)
+        console.log("embaixo")
         console.log(res)
         dispatch(reservarSuccess(res.id_reserva));
     }
     catch (error) {
         dispatch(reservarFail(error))
+    }
+}
+
+
+export const datasOcupadas = () => async dispatch => {
+    try{
+        const res = axios.get('')
+    }
+    catch (error) {
+
     }
 }

@@ -6,6 +6,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import * as actions from '../../actions/usuario'
+import {connect} from 'react-redux';
+
 import { Link } from 'react-router-dom'
 
 
@@ -32,7 +35,7 @@ const CustomAppBar = (props) => {
                     </Link>
                     
                     <Button style={{ color: '#1B5E20' }}>Instruções</Button>
-                    <Button style={{ color: '#1B5E20' }}>Sair</Button>
+                    <Button style={{ color: '#1B5E20' }} onClick={props.logout} to="/">Sair</Button>
                 </Toolbar>
             </AppBar>
         </div>
@@ -54,5 +57,11 @@ const styles = {
     },
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logout: () => dispatch(actions.logout())
+    }
+}
 
-export default withStyles(styles)(CustomAppBar);
+
+export default withStyles(styles)(connect(null, mapDispatchToProps)(CustomAppBar));

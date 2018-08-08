@@ -4,8 +4,8 @@ import Button from '@material-ui/core/Button';
 import {connect} from 'react-redux';
 import * as actions from '../../actions/reserva'
 import { DateRangePicker } from 'react-dates';
-import Spinner from '../../components/Spinner'
-
+import Spinner from '../../components/Spinner';
+import moment from 'moment'
 class Reservas extends React.Component {
     state = {
         data: null,
@@ -16,13 +16,13 @@ class Reservas extends React.Component {
 
     confirmar = () => {
         const { startDate, endDate } = this.state
-
         if (this.state.startDate && this.state.endDate) {
-            this.props.reservar(this.props.idUsuario, startDate.format(), endDate.format())
+            this.props.reservar(this.props.idUsuario, startDate.locale("en").utcOffset(-180).format("ddd, DD MMM YYYY HH:mm:ss") + " GMT", endDate.locale("en").utcOffset(-180).format("ddd, DD MMM YYYY HH:mm:ss") + " GMT")
         }
     }
 
     render() {
+        const {endDate, startDate} = this.state
         return (
             <div>
                 <Typography variant="display2" style={{ fontSize: 30, color: '#1B5E20', opacity: 1, marginTop: 20, marginLeft: 20 }}>
@@ -31,6 +31,7 @@ class Reservas extends React.Component {
                 <div style={{ marginLeft: 20, marginTop: 20, display: "inline-flex", flexDirection: 'row', border: '1px solid gray', borderRadius: 5, padding: 5, flex: 0 }}>
                     <div >
                         <DateRangePicker
+                            
                             noBorder={true}
                             startDatePlaceholderText="Data Inicial"
                             endDatePlaceholderText="Data Final"
@@ -45,13 +46,17 @@ class Reservas extends React.Component {
                         />
                     </div>
                     <div style={{ color: '#1B5E20', alignSelf: 'center' }}>
-                        R$: 230,00
+                        {startDate && endDate ? "R$: " + (endDate.diff(startDate, 'd') * 1500).toString() + ",00": ""}
                     </div>
                     <div style={{ alignSelf: 'center', marginLeft: 20}}>
                         {this.props.loading
                             ? <Spinner />
-                            : <Button onClick={this.confirmar} size="medium" style={{ color: '#1B5E20' }} >
-                                Confirmar
+                            : <Button
+                                disabled={!(startDate && endDate)}
+                                onClick={this.confirmar}
+                                size="medium"
+                                style={{ color: '#1B5E20' }} >
+                                    Confirmar
                               </Button>
                         }
 

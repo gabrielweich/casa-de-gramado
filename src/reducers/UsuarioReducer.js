@@ -58,32 +58,12 @@ const loginSuccess = (state, id) => {
     }
 }
 
-
-
-const reservarStart = (state) => {
+const logout = (state) => {
     return {
         ...state,
-        loginLoading: true,
-        loginError: false
+        id: null
     }
 }
-
-const reservarFail = (state, error) => {
-    return {
-        ...state,
-        loginLoading: false,
-        loginError: error
-    }
-}
-
-const reservarSuccess = (state, idReserva) => {
-    return {
-        ...state,
-        loginLoading: false,
-        idReserva,
-    }
-}
-
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -93,6 +73,7 @@ const reducer = (state = initialState, action) => {
         case types.LOGIN_START: return loginStart(state);
         case types.LOGIN_FAIL: return loginFail(state, action.error)
         case types.LOGIN_SUCCESS: return loginSuccess(state, action.id)
+        case types.LOGOUT: return logout(state)
         default: return state;
     }
 }

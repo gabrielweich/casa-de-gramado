@@ -7,7 +7,7 @@ import Reservas from './screens/Reservas'
 
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
-import moment from 'moment';
+
 import 'moment/locale/pt-br';
 
 
