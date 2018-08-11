@@ -1,55 +1,41 @@
-.lds-heart {
-  display: inline-block;
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+}
+.loader {
+  margin: 60px auto;
+  font-size: 10px;
   position: relative;
-  width: 64px;
-  height: 64px;
-  transform: rotate(45deg);
-  transform-origin: 32px 32px;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-left: 1.1em solid #1c89c9;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
 }
-.lds-heart div {
-  top: 23px;
-  left: 19px;
-  position: absolute;
-  width: 26px;
-  height: 26px;
-  background: red;
-  animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-.lds-heart div:after,
-.lds-heart div:before {
-  content: " ";
-  position: absolute;
-  display: block;
-  width: 26px;
-  height: 26px;
-  background: red;
-}
-.lds-heart div:before {
-  left: -17px;
-  border-radius: 50% 0 0 50%;
-}
-.lds-heart div:after {
-  top: -17px;
-  border-radius: 50% 50% 0 0;
-}
-@keyframes lds-heart {
+@-webkit-keyframes load8 {
   0% {
-    transform: scale(0.95);
-  }
-  5% {
-    transform: scale(1.1);
-  }
-  39% {
-    transform: scale(0.85);
-  }
-  45% {
-    transform: scale(1);
-  }
-  60% {
-    transform: scale(0.95);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-    transform: scale(0.9);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
-  
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

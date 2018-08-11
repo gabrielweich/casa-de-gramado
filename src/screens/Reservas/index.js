@@ -1,10 +1,18 @@
 import React from 'react'
+
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import { connect } from 'react-redux';
 import * as actions from '../../actions/reserva'
 import { DateRangePicker } from 'react-dates';
-import Spinner from '../../components/Spinner';
 
 class Reservas extends React.Component {
     state = {
@@ -16,6 +24,7 @@ class Reservas extends React.Component {
 
     componentDidMount() {
         this.props.loadDatasReservadas()
+        this.props.loadMinhasReservas(this.props.idUsuario)
     }
 
     confirmar = () => {
@@ -27,7 +36,7 @@ class Reservas extends React.Component {
 
     render() {
         const { endDate, startDate } = this.state
-        console.log(this.props.datasReservadas)
+        console.log(this.props.minhasReservas)
         return (
             <div>
                 <Typography variant="display2" style={{ fontSize: 30, color: '#1B5E20', opacity: 1, marginTop: 20, marginLeft: 20 }}>
@@ -37,13 +46,10 @@ class Reservas extends React.Component {
                     <div >
                         {this.props.datasReservadasLoading
                             ?
-                            null
+                            <CircularProgress/>
                             :
                             <DateRangePicker
-                                isDayBlocked={d => {
-                                    const f_d = d.format("DD/MM/YYYY")
-                                    return this.props.datasReservadas.has(f_d)
-                                }}
+                                isDayBlocked={d => this.props.datasReservadas.has(d.format("DD/MM/YYYY"))}
                                 noBorder={true}
                                 startDatePlaceholderText="Data Inicial"
                                 endDatePlaceholderText="Data Final"
@@ -62,7 +68,7 @@ class Reservas extends React.Component {
                     </div>
                     <div style={{ alignSelf: 'center', marginLeft: 20 }}>
                         {this.props.loading
-                            ? <Spinner />
+                            ? <CircularProgress/>
                             : <Button
                                 disabled={!(startDate && endDate)}
                                 onClick={this.confirmar}
@@ -78,8 +84,39 @@ class Reservas extends React.Component {
                 <Typography variant="display2" style={{ fontSize: 30, color: '#1B5E20', opacity: 1, marginTop: 40, marginLeft: 20 }}>
                     Reservas anteriores
                 </Typography>
-                <div style={{ marginLeft: 20, marginTop: 20, color: '#1B5E20', alignSelf: 'center' }}>
-                    Você ainda não tem reservas.
+                <div style={{ margin: 20, color: '#1B5E20', alignSelf: 'center' }}>
+                    {
+                        this.props.minhasReservas
+                            ?
+                            <Paper>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Check-in</TableCell>
+                                            <TableCell>Check-out</TableCell>
+                                            <TableCell>Status</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {this.props.minhasReservas.map(n => {
+                                            return (
+                                                <TableRow>
+                                                    <TableCell>{n[0].format()}</TableCell>
+                                                    <TableCell>{n[1].format()}</TableCell>
+                                                    <TableCell>Aguardando</TableCell>
+                                                </TableRow>
+                                            );
+                                        })}
+                                    </TableBody>
+                                </Table>
+                            </Paper>
+                            :
+                            this.propś.minhasReservasLoading
+                                ?
+                                <CircularProgress/>
+                                :
+                                "Você ainda não tem reservas."
+                    }
                 </div>
             </div>
         )
@@ -92,7 +129,9 @@ const mapStateToProps = (state) => {
         error: state.reserva.reservarFail,
         idUsuario: state.usuario.id,
         datasReservadas: state.reserva.datasReservadas,
-        datasReservadasLoading: state.reserva.datasReservadasLoading
+        datasReservadasLoading: state.reserva.datasReservadasLoading,
+        minhasReservasLoading: state.reserva.minhasReservasLoading,
+        minhasReservas: state.reserva.minhasReservas
     }
 }
 
@@ -100,7 +139,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         reservar: (idUsuario, inicio, fim) => dispatch(actions.reservar(idUsuario, inicio, fim)),
-        loadDatasReservadas: () => dispatch(actions.datasReservadas())
+        loadDatasReservadas: () => dispatch(actions.datasReservadas()),
+        loadMinhasReservas: (idUsuario) => dispatch(actions.minhasReservas(idUsuario))
     }
 }
 

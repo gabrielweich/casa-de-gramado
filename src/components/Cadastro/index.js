@@ -14,7 +14,7 @@ import MaskedInput from 'react-text-mask'
 import { connect } from 'react-redux';
 
 import * as actions from '../../actions/usuario'
-import Spinner from '../Spinner'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function TextMaskCustom(props) {
     const { inputRef, ...other } = props;
@@ -110,7 +110,7 @@ class Cadastro extends React.Component {
                     </DialogContent>
                     <DialogActions style={{ flexDirection: 'column', justifyContent: 'center' }}>
                         {this.props.loading
-                            ? <Spinner />
+                            ? <CircularProgress/>
                             : <Button onClick={this.handleEnviar} variant="raised" color="primary">
                                 Enviar
                               </Button>

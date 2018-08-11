@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 
 import * as actions from '../../actions/usuario'
-import Spinner from '../Spinner'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Login extends React.Component {
     state = {
@@ -72,7 +72,7 @@ class Login extends React.Component {
                         </div>
 
                         {this.props.loading
-                            ? <Spinner />
+                            ? <CircularProgress/>
                             : <Button onClick={this.handleEntrar} variant="raised" color="primary">
                                 Entrar
                               </Button>

@@ -7,7 +7,9 @@ const initialState = {
     datasReservadasLoading: false,
     datasReservadasFail: null,
     datasReservadas: new Set(),
-    idReserva: null,
+    minhasReservasLoading: false,
+    minhasReservasFail: null,
+    minhasReservas: [],
 }
 
 
@@ -62,6 +64,33 @@ const datasReservadasSuccess = (state, datasReservadas) => {
 }
 
 
+
+
+const minhasReservasStart = (state) => {
+    return {
+        ...state,
+        minhasReservasLoading: true,
+        minhasReservasError: false
+    }
+}
+
+const minhasReservasFail = (state, error) => {
+    return {
+        ...state,
+        minhasReservasLoading: false,
+        minhasReservasFail: error
+    }
+}
+
+const minhasReservasSuccess = (state, minhasReservas) => {
+    return {
+        ...state,
+        minhasReservasLoading: false,
+        minhasReservas,
+    }
+}
+
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case types.RESERVAR_START: return reservarStart(state);
@@ -70,6 +99,9 @@ const reducer = (state = initialState, action) => {
         case types.DATAS_RESERVADAS_START: return datasReservadasStart(state);
         case types.DATAS_RESERVADAS_FAIL: return datasReservadasFail(state, action.error)
         case types.DATAS_RESERVADAS_SUCCESS: return datasReservadasSuccess(state, action.datasReservadas)
+        case types.MINHAS_RESERVAS_START: return minhasReservasStart(state);
+        case types.MINHAS_RESERVAS_FAIL: return minhasReservasFail(state, action.error)
+        case types.MINHAS_RESERVAS_SUCCESS: return minhasReservasSuccess(state, action.minhasReservas)
         default: return state;
     }
 }
