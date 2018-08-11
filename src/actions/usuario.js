@@ -22,7 +22,7 @@ const cadatroSuccess = (id) => {
 }
 
 export const cadastro = (usuario) => async dispatch => {
-    usuario.senha = parseInt(usuario.senha)
+    usuario = {...usuario, telefone: usuario.telefone.replace(/[(\s)]/g, '')}
     console.log(usuario)
     dispatch(cadastroStart());
     try {
@@ -60,13 +60,8 @@ const loginSuccess = (id) => {
 
 export const login = (email, senha) => async dispatch => {
     dispatch(loginStart())
-    const data = {
-        senha: parseInt(senha),
-        email
-    }
     try {
-        const res = await axios.post('/login', data)
-        console.log(res)
+        const res = await axios.post('/login', {email, senha})
         dispatch(loginSuccess(res.data.id_usuario));
     }
     catch (error) {

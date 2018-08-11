@@ -17,7 +17,7 @@ const reservarStart = (state) => {
     return {
         ...state,
         reservarLoading: true,
-        reservarError: false
+        reservarFail: false
     }
 }
 
@@ -43,7 +43,7 @@ const datasReservadasStart = (state) => {
     return {
         ...state,
         datasReservadasLoading: true,
-        datasReservadasError: false
+        datasReservadasFailr: false
     }
 }
 
@@ -70,7 +70,7 @@ const minhasReservasStart = (state) => {
     return {
         ...state,
         minhasReservasLoading: true,
-        minhasReservasError: false
+        minhasReservasFail: null
     }
 }
 

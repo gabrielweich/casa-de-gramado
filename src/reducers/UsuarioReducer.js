@@ -12,7 +12,7 @@ const cadastroStart = (state) => {
     return {
         ...state,
         cadastroLoading: true,
-        cadastroError: false
+        cadastroFail: null
     }
 }
 
@@ -20,7 +20,7 @@ const cadastroFail = (state, error) => {
     return {
         ...state,
         cadastroLoading: false,
-        cadastroError: error
+        cadastroFail: error
     }
 }
 
@@ -38,7 +38,7 @@ const loginStart = (state) => {
     return {
         ...state,
         loginLoading: true,
-        loginError: false
+        loginFail: null
     }
 }
 
@@ -46,7 +46,7 @@ const loginFail = (state, error) => {
     return {
         ...state,
         loginLoading: false,
-        loginError: error
+        loginFail: error
     }
 }
 
