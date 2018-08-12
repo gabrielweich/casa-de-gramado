@@ -74,7 +74,7 @@ export const datasReservadas = () => async dispatch => {
         dispatch(datasReservadasStart())
         const res = await axios.get('/datasreservadas')
         console.log(res)
-        const datas = res.data.datas.map(d => moment(d).locale("en").utcOffset(900).format("DD/MM/YYYY"))
+        const datas = res.data.datas.map(d => moment(d).locale("en").utcOffset(0).format("DD/MM/YYYY"))
         dispatch(datasReservadasSuccess(datas))
     }
     catch (error) {
@@ -110,8 +110,8 @@ export const minhasReservas = (idUsuario) => async dispatch => {
     try {
         dispatch(minhasReservasStart())
         const reservas = await axios.post('/getreservas', {'id_usuario': idUsuario})
-        console.log(reservas.data.reservas['1'])
-        dispatch(minhasReservasSuccess(reservas.data.reservas['1'].map(r => [moment(r[0]), moment(r[1])])))
+        const datas = [...reservas.data.reservas['1'].map(r => [moment(r[0]), moment(r[1])])].sort((a,b) => b[0] - a[0])
+        dispatch(minhasReservasSuccess(datas.map(d => [d[0].utcOffset(0).format("DD/MM/YYYY"), d[1].utcOffset(0).format("DD/MM/YYYY")])))
     }
     catch (error) {
         dispatch(minhasReservasFail(error))

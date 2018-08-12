@@ -101,8 +101,8 @@ class Reservas extends React.Component {
                                         {this.props.minhasReservas.map(n => {
                                             return (
                                                 <TableRow>
-                                                    <TableCell>{n[0].format()}</TableCell>
-                                                    <TableCell>{n[1].format()}</TableCell>
+                                                    <TableCell>{n[0]}</TableCell>
+                                                    <TableCell>{n[1]}</TableCell>
                                                     <TableCell>Aguardando</TableCell>
                                                 </TableRow>
                                             );
