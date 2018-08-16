@@ -4,10 +4,10 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-import titleImage from '../../images/6.jpg'
-import './styles.css'
-import Login from '../../components/Login'
-import Cadastro from '../../components/Cadastro'
+import titleImage from '../images/6.jpg'
+import './Gesiel/styles.css'
+import Login from '../components/Login'
+import Cadastro from '../components/Cadastro'
 
 export default class Home extends React.Component {
     state = {
@@ -44,7 +44,7 @@ export default class Home extends React.Component {
                     open={this.state.cadastro}
                     handleClose={this.handleCloseCadastro} />
 
-                <div className="title-container">
+                <div style={{ position:'relative', textAlign: 'center'}}>
                     <div className="title-text">Casa de Gramado</div>
                     <img className="title-image" src={titleImage} />
                     <Button

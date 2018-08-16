@@ -1,17 +1,17 @@
 import React from 'react'
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
 
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 
-import * as actions from '../../actions/usuario'
-import CircularProgress from '@material-ui/core/CircularProgress';
+import * as actions from '../actions/usuario'
 
 class Login extends React.Component {
     state = {

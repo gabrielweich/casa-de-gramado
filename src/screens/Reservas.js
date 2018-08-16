@@ -1,17 +1,17 @@
 import React from 'react'
 
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+import Table from '@material-ui/core/Table';
 import Paper from '@material-ui/core/Paper';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { connect } from 'react-redux';
-import * as actions from '../../actions/reserva'
+import * as actions from '../actions/reserva'
 import { DateRangePicker } from 'react-dates';
 
 class Reservas extends React.Component {

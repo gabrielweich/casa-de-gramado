@@ -1,20 +1,20 @@
 import React from 'react'
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import Input from '@material-ui/core/Input';
 import MaskedInput from 'react-text-mask'
 
 import { connect } from 'react-redux';
 
-import * as actions from '../../actions/usuario'
-import CircularProgress from '@material-ui/core/CircularProgress';
+import * as actions from '../actions/usuario'
 
 function TextMaskCustom(props) {
     const { inputRef, ...other } = props;
